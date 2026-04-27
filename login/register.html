@@ -36,7 +36,15 @@
                 <p class="gentle-subtitle">Sign in to your peaceful space</p>
             </div>
             
-            <form class="comfort-form" id="loginForm" novalidate>
+            <form class="register-form" id="registerForm" novalidate>
+                <div class="soft-field">
+                    <div class="field-container">
+                        <input type="text" id="username" name="username" required autocomplete="username">
+                        <label for="text">Username</label>
+                        <div class="field-accent"></div>
+                    </div>
+                    <span class="gentle-error" id="emailError"></span>
+                </div>
                 <div class="soft-field">
                     <div class="field-container">
                         <input type="email" id="email" name="email" required autocomplete="email">
@@ -147,5 +155,8 @@
 
     <script src="../../shared/js/form-utils.js"></script>
     <script src="script.js"></script>
+    
+<p id="message;"></p>
+<script src="js/register.js" defer></script>
 </body>
 </html>
