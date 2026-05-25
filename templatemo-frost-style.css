@@ -204,6 +204,34 @@ button {
 	flex-shrink: 0;
 }
 
+/* ============================================
+       Sidebar Auth Section
+       ============================================ */
+.sidebar__auth {
+	padding: 1.5rem;
+	border-top: 1px solid rgba(244, 241, 222, 0.1);
+	border-bottom: 1px solid rgba(244, 241, 222, 0.1);
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.sidebar__auth-info {
+	font-family: var(--font-body);
+	font-size: 0.9rem;
+	font-weight: 500;
+	color: rgba(244, 241, 222, 0.65);
+	margin: 0;
+}
+
+.sidebar__auth-btn {
+	padding: 0.65rem 1.5rem;
+	font-size: 0.85rem;
+	font-weight: 600;
+	border-radius: var(--radius-md);
+	transition: all 0.3s var(--ease-out);
+}
+
 .sidebar__footer {
 	padding: 1.5rem;
 	border-top: 1px solid rgba(244, 241, 222, 0.1);
@@ -998,138 +1026,117 @@ button {
 
 .seasonal-tab.is-active {
 	color: #fff;
-	border-color: transparent;
-}
-
-.seasonal-tab.is-active[data-season="spring"] {
-	background: #d4627a;
-}
-
-.seasonal-tab.is-active[data-season="summer"] {
-	background: #e09030;
-}
-
-.seasonal-tab.is-active[data-season="autumn"] {
 	background: var(--terracotta);
 }
 
-.seasonal-tab.is-active[data-season="winter"] {
-	background: var(--navy);
+.seasonal-tab.is-active::after {
+	content: '';
+	position: absolute;
+	bottom: -4px;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: var(--sage);
+	border-radius: 2px;
 }
 
-/* Tab panels container */
 .seasonal-panels {
 	position: relative;
-	overflow: hidden;
-	border-radius: var(--radius-xl);
+	min-height: 400px;
 }
 
 .seasonal-panel {
 	display: none;
-	animation: seasonFadeIn 0.5s var(--ease-out);
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+	transition: opacity 0.5s var(--ease-out);
+	animation: fadeInUp 0.5s var(--ease-out) forwards;
+	grid-template-columns: 1fr 1fr;
+	gap: clamp(2rem, 4vw, 4rem);
+	align-items: center;
 }
 
 .seasonal-panel.is-active {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	align-items: stretch;
+	opacity: 1;
 }
 
-@keyframes seasonFadeIn {
+@keyframes fadeInUp {
 	from {
 		opacity: 0;
-		transform: translateY(12px);
+		transform: translateY(20px);
 	}
-
 	to {
 		opacity: 1;
 		transform: translateY(0);
 	}
 }
 
-/* Left: image visual with overlay */
 .seasonal-panel__visual {
 	position: relative;
-	min-height: 380px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-end;
-	padding: 1.5rem;
+	border-radius: var(--radius-lg);
 	overflow: hidden;
+	height: 350px;
 }
 
 .seasonal-panel__visual img {
-	position: absolute;
-	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
-
-.seasonal-panel__visual::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
-	pointer-events: none;
+	display: block;
 }
 
 .seasonal-panel__badge {
-	position: relative;
-	z-index: 2;
-	display: inline-block;
-	padding: 0.4rem 1.2rem;
-	background: rgba(255, 255, 255, 0.2);
-	backdrop-filter: blur(8px);
-	border-radius: 50px;
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
+	position: absolute;
+	bottom: 1rem;
+	left: 1rem;
+	padding: 0.4rem 1rem;
+	background: rgba(61, 64, 91, 0.9);
 	color: #fff;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	border-radius: 50px;
+	backdrop-filter: blur(6px);
 }
 
-/* Right: details panel */
 .seasonal-panel__details {
-	padding: clamp(2rem, 4vw, 3rem);
-	background: #fff;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	gap: 1rem;
 }
 
 .seasonal-panel__season-label {
-	font-size: 0.7rem;
+	font-size: 0.72rem;
 	font-weight: 700;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--terracotta);
-	margin-bottom: 0.5rem;
 }
 
 .seasonal-panel__name {
 	font-family: var(--font-heading);
-	font-size: clamp(1.6rem, 3vw, 2.2rem);
+	font-size: clamp(1.8rem, 4vw, 2.2rem);
 	font-weight: 700;
 	color: var(--navy);
-	margin-bottom: 0.75rem;
-	letter-spacing: -0.02em;
+	margin: 0;
 }
 
 .seasonal-panel__desc {
-	font-size: 1rem;
+	font-size: 1.05rem;
 	color: var(--navy-light);
 	line-height: 1.7;
-	margin-bottom: 1.5rem;
-	max-width: 440px;
+	margin: 0;
 }
 
 .seasonal-panel__meta {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.75rem;
-	margin-bottom: 1.5rem;
+	gap: 0.5rem;
 }
 
 .seasonal-panel__meta-tag {
@@ -1137,11 +1144,11 @@ button {
 	align-items: center;
 	gap: 0.4rem;
 	padding: 0.4rem 0.85rem;
-	background: var(--cream);
+	background: rgba(224, 122, 95, 0.1);
 	border-radius: 50px;
-	font-size: 0.78rem;
+	font-size: 0.8rem;
 	font-weight: 600;
-	color: var(--navy);
+	color: var(--terracotta);
 }
 
 .seasonal-panel__meta-tag span {
@@ -1150,46 +1157,17 @@ button {
 
 .seasonal-panel__cta {
 	align-self: flex-start;
-}
-
-/* Responsive: Tablet & Mobile */
-@media (max-width: 1024px) {
-	.seasonal-panel.is-active {
-		grid-template-columns: 1fr;
-	}
-
-	.seasonal-panel__visual {
-		min-height: 220px;
-	}
-}
-
-@media (max-width: 640px) {
-	.seasonal-tabs {
-		gap: 3px;
-	}
-
-	.seasonal-tab {
-		padding: 0.75rem 0.5rem;
-		font-size: 0.72rem;
-	}
-
-	.seasonal-tab__icon {
-		font-size: 1.3rem;
-		margin-bottom: 0.25rem;
-	}
-
-	.seasonal-panel__visual {
-		min-height: 180px;
-	}
+	margin-top: 1rem;
 }
 
 /* ============================================
        Section: Loyalty Stamp Card
        ============================================ */
 .loyalty {
+	position: relative;
 	background:
-		radial-gradient(ellipse at 30% 70%, rgba(129, 178, 154, 0.1) 0%, transparent 50%),
-		var(--cream);
+		radial-gradient(ellipse at 70% 30%, rgba(129, 178, 154, 0.08) 0%, transparent 50%),
+		#fff;
 }
 
 .loyalty__layout {
@@ -1200,152 +1178,142 @@ button {
 }
 
 .loyalty__info {
-	max-width: 480px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
 }
 
 .loyalty__perks {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
-	margin-top: 1.5rem;
+	gap: 1.25rem;
 }
 
 .perk {
 	display: flex;
-	align-items: start;
-	gap: 0.75rem;
+	gap: 1rem;
 }
 
 .perk__icon {
 	flex-shrink: 0;
-	width: 36px;
-	height: 36px;
+	width: 32px;
+	height: 32px;
 	background: var(--sage);
 	color: #fff;
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 1rem;
+	font-weight: 700;
+	font-size: 1.2rem;
 }
 
 .perk__text {
-	font-size: 0.92rem;
+	font-size: 0.95rem;
 	color: var(--navy-light);
+	line-height: 1.6;
+	margin: 0;
 }
 
 .perk__text strong {
 	color: var(--navy);
+	font-weight: 700;
 }
 
-/* Stamp Card Visual */
 .stamp-card {
-	background: #fff;
-	border-radius: var(--radius-xl);
+	background: var(--cream);
+	border-radius: var(--radius-lg);
 	padding: 2rem;
-	box-shadow: var(--shadow-hover);
-	position: relative;
-	overflow: hidden;
-}
-
-.stamp-card::before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	height: 6px;
-	background: linear-gradient(90deg, var(--terracotta), var(--sage), var(--terracotta));
+	box-shadow: var(--shadow-card);
 }
 
 .stamp-card__header {
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
+	align-items: center;
 	margin-bottom: 1.5rem;
+	padding-bottom: 1rem;
+	border-bottom: 2px solid rgba(61, 64, 91, 0.1);
 }
 
 .stamp-card__title {
 	font-family: var(--font-heading);
 	font-size: 1.2rem;
-	font-weight: 600;
+	font-weight: 700;
 	color: var(--navy);
 }
 
 .stamp-card__count {
-	font-size: 0.8rem;
-	color: var(--terracotta);
+	font-size: 1.1rem;
 	font-weight: 700;
+	color: var(--terracotta);
 }
 
 .stamp-card__grid {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
-	gap: 0.75rem;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
 }
 
 .stamp {
 	aspect-ratio: 1;
-	border-radius: var(--radius-sm);
-	border: 2px dashed rgba(61, 64, 91, 0.15);
+	background: rgba(244, 241, 222, 0.6);
+	border: 2px dashed rgba(61, 64, 91, 0.2);
+	border-radius: var(--radius-md);
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 1.4rem;
-	color: rgba(61, 64, 91, 0.2);
+	font-size: 1.5rem;
 	transition: all 0.3s var(--ease-out);
+	cursor: default;
 }
 
 .stamp--filled {
-	background: var(--terracotta);
-	border-color: var(--terracotta);
-	color: #fff;
-	box-shadow: 0 2px 8px rgba(224, 122, 95, 0.3);
+	background: linear-gradient(135deg, var(--sage-light), var(--sage));
+	border-color: var(--sage);
+	box-shadow: 0 4px 12px rgba(129, 178, 154, 0.2);
 }
 
 .stamp--reward {
-	border-color: var(--sage);
-	color: var(--sage);
-	font-size: 1rem;
+	background: linear-gradient(135deg, var(--terracotta-light), var(--terracotta));
+	border-color: var(--terracotta);
 	font-weight: 700;
-}
-
-.stamp--reward.stamp--filled {
-	background: var(--sage);
-	border-color: var(--sage);
 	color: #fff;
-	box-shadow: 0 2px 8px rgba(129, 178, 154, 0.3);
+	box-shadow: 0 4px 12px rgba(224, 122, 95, 0.2);
 }
 
 .stamp-card__footer {
-	margin-top: 1.25rem;
-	font-size: 0.78rem;
-	color: var(--navy-light);
 	text-align: center;
+	font-size: 0.9rem;
+	color: var(--navy-light);
+	margin: 0;
+	font-weight: 500;
 }
 
 /* ============================================
-       Footer
+       Section: Footer
        ============================================ */
 .footer {
-	padding: 3rem var(--section-pad) 2rem;
 	background: var(--navy);
-	color: rgba(244, 241, 222, 0.6);
+	color: var(--cream);
+	padding: 3rem var(--section-pad) 1.5rem;
 }
 
 .footer__top {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	gap: 2rem;
+	display: grid;
+	grid-template-columns: 1.5fr 1fr;
+	gap: clamp(2rem, 4vw, 4rem);
+	margin-bottom: 2rem;
 	padding-bottom: 2rem;
 	border-bottom: 1px solid rgba(244, 241, 222, 0.1);
 }
 
 .footer__brand {
 	font-family: var(--font-heading);
-	font-size: 1.6rem;
+	font-size: 2rem;
 	font-weight: 700;
+	letter-spacing: -0.02em;
 	color: var(--cream);
 	margin-bottom: 0.5rem;
 }
@@ -1355,130 +1323,171 @@ button {
 }
 
 .footer__copy {
-	font-size: 0.85rem;
-	max-width: 300px;
+	font-size: 0.95rem;
+	color: rgba(244, 241, 222, 0.7);
+	line-height: 1.7;
+	max-width: 380px;
+	margin: 0;
 }
 
 .footer__links {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 2rem 4rem;
-}
-
-.footer__col {
-	min-width: 140px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
 }
 
 .footer__col h4 {
-	font-family: var(--font-body);
-	font-size: 0.75rem;
+	font-size: 0.95rem;
 	font-weight: 700;
-	letter-spacing: 0.12em;
+	color: var(--cream);
+	margin-bottom: 1rem;
 	text-transform: uppercase;
-	color: var(--sage-light);
-	margin-bottom: 0.75rem;
+	letter-spacing: 0.06em;
 }
 
 .footer__col ul {
 	display: flex;
 	flex-direction: column;
-	gap: 0.4rem;
+	gap: 0.6rem;
 }
 
 .footer__col a {
-	font-size: 0.88rem;
-	transition: color 0.2s ease;
+	font-size: 0.85rem;
+	color: rgba(244, 241, 222, 0.65);
+	transition: color 0.3s var(--ease-out);
 }
 
 .footer__col a:hover {
-	color: var(--cream);
+	color: var(--sage-light);
 }
 
 .footer__bottom {
-	padding-top: 1.5rem;
-	font-size: 0.78rem;
 	text-align: center;
+	font-size: 0.8rem;
+	color: rgba(244, 241, 222, 0.5);
+}
+
+.footer__bottom p {
+	margin: 0;
 }
 
 .footer__bottom a {
-	color: var(--terracotta-light);
+	color: rgba(244, 241, 222, 0.7);
+	transition: color 0.3s var(--ease-out);
 }
 
 .footer__bottom a:hover {
-	color: var(--terracotta);
+	color: var(--sage-light);
 }
 
 /* ============================================
-       Responsive: Tablet (< 1024px)
+       Responsive: Tablet
        ============================================ */
 @media (max-width: 1024px) {
-	:root {
-		--sidebar-width: 0px;
+	.builder__layout,
+	.loyalty__layout {
+		grid-template-columns: 1fr;
 	}
 
-	.sidebar {
-		transform: translateX(-100%);
-		width: 280px;
+	.seasonal-panel {
+		grid-template-columns: 1fr;
 	}
 
-	.sidebar.is-open {
-		transform: translateX(0);
+	.seasonal-panel__visual {
+		height: 250px;
+	}
+
+	.footer__top {
+		grid-template-columns: 1fr;
+	}
+
+	.footer__links {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+/* ============================================
+       Responsive: Mobile
+       ============================================ */
+@media (max-width: 768px) {
+	.main {
+		margin-left: 0;
 	}
 
 	.hamburger {
 		display: flex;
 	}
 
-	.main {
-		margin-left: 0;
+	.sidebar {
+		transform: translateX(-100%);
+		max-width: 100%;
+		width: 80vw;
 	}
 
-	.builder__layout,
-	.loyalty__layout {
-		grid-template-columns: 1fr;
+	.sidebar.is-visible {
+		transform: translateX(0);
+	}
+
+	.sidebar-overlay {
+		display: block;
 	}
 
 	.hero__deco {
-		opacity: 0.3;
+		opacity: 0.5;
 		right: -10%;
 	}
-}
 
-/* ============================================
-       Responsive: Mobile (< 640px)
-       ============================================ */
-@media (max-width: 640px) {
-	.hero {
-		padding-top: 5rem;
-		min-height: auto;
+	.flavor-card {
+		width: 280px;
 	}
 
-	.hero__deco {
-		opacity: 0.2;
-		right: -15%;
-		width: 220px;
-		height: 220px;
+	.seasonal-tabs {
+		flex-wrap: wrap;
 	}
 
-	.catering__grid {
-		grid-template-columns: 1fr;
+	.seasonal-tab {
+		flex: 1 1 calc(50% - 2px);
 	}
 
 	.stamp-card__grid {
-		grid-template-columns: repeat(5, 1fr);
-		gap: 0.5rem;
+		grid-template-columns: repeat(4, 1fr);
 	}
+}
 
-	.footer__top {
-		flex-direction: column;
-	}
-
-	.footer__links {
-		gap: 2rem;
+@media (max-width: 480px) {
+	.hero__title {
+		font-size: clamp(1.8rem, 5vw, 2.8rem);
 	}
 
 	.section {
-		padding-left: 1.25rem;
-		padding-right: 1.25rem;
+		padding: 2rem 1.5rem;
+	}
+
+	.flavor-card {
+		width: 220px;
+		padding: 1rem;
+	}
+
+	.flavor-card__name {
+		font-size: 0.95rem;
+	}
+
+	.seasonal-tab {
+		flex: 1 1 100%;
+		padding: 0.75rem 1rem;
+		font-size: 0.75rem;
+	}
+
+	.seasonal-tab__icon {
+		font-size: 1.2rem;
+		margin-bottom: 0.2rem;
+	}
+
+	.footer__col {
+		display: none;
+	}
+
+	.footer__links {
+		display: none;
 	}
 }
